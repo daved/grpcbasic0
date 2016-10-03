@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package idl;
+
+import "google/api/annotations.proto";
+
+message User {
+    int64 id = 1;
+    string name = 2;
+    int64 age = 3;
+    string fortune = 4;
+}
+
+message UserRecordReq {
+    string name = 1;
+    int64 age = 2;
+}
+
+message UserGetReq {
+    int64 id = 1;
+}
+
+message Users {
+    repeated User users = 1;
+}
+
+message UsersListReq {
+    int64 count = 1;
+    int64 start = 2;
+    bool down = 3;
+}
+
+service UserService {
+    rpc RecordUser(UserRecordReq) returns (User) {
+        option(google.api.http) = {
+            post: "/v1/user"
+            body: "*"
+        };
+    }
+
+    rpc GetUser(UserGetReq) returns (User) {
+        option(google.api.http) = {
+            post: "/v1/users/{id}"
+            body: "*"
+        };
+    }
+
+    rpc ListUsers(UsersListReq) returns (Users) {
+        option(google.api.http) = {
+            post: "/v1/users"
+            body: "*"
+        };
+    }
+}
