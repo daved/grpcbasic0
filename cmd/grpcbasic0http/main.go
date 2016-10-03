@@ -12,8 +12,22 @@ import (
 	"google.golang.org/grpc"
 )
 
-func swaggerWrapper(next http.Handler) http.Handler {
+func cors(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		o := r.Header.Get("Origin")
+		if o == "" {
+			stts := http.StatusBadRequest
+			http.Error(w, http.StatusText(stts), stts)
+			return
+		}
+		w.Header().Set("Access-Control-Allow-Origin", o)
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+func swaggerWrapper(next http.Handler) http.Handler {
+	return cors(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/v1/swagger.json" {
 			if d, err := idl.Asset("grpcbasic0.swagger.json"); err == nil {
 				_, err = w.Write(d)
@@ -26,7 +40,7 @@ func swaggerWrapper(next http.Handler) http.Handler {
 		}
 
 		next.ServeHTTP(w, r)
-	})
+	}))
 }
 
 func main() {
