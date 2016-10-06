@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+// User Service
+//
+// User Service API provides create, read, and read (many) access to a list of 
+// users.
 package idl;
 
 import "google/api/annotations.proto";
@@ -24,10 +28,10 @@ message Users {
     repeated User users = 1;
 }
 
-message UsersListReq {
-    int64 count = 1;
-    int64 start = 2;
-    bool down = 3;
+message UsersGetReq {
+    int64 start = 1;
+    int64 count = 2;
+    bool desc = 3;
 }
 
 service UserService {
@@ -40,15 +44,13 @@ service UserService {
 
     rpc GetUser(UserGetReq) returns (User) {
         option(google.api.http) = {
-            post: "/v1/users/{id}"
-            body: "*"
+            get: "/v1/user/{id}"
         };
     }
 
-    rpc ListUsers(UsersListReq) returns (Users) {
+    rpc GetUsers(UsersGetReq) returns (Users) {
         option(google.api.http) = {
-            post: "/v1/users"
-            body: "*"
+            get: "/v1/users"
         };
     }
 }

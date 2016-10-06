@@ -6,41 +6,80 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/daved/grpcbasic0/idl"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 )
 
+// cross-origin resource sharing
 func cors(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		h := w.Header()
+
+		// TODO: be careful!
 		o := r.Header.Get("Origin")
-		if o == "" {
-			stts := http.StatusBadRequest
-			http.Error(w, http.StatusText(stts), stts)
+		h.Set("Access-Control-Allow-Origin", o)
+
+		if r.Method == http.MethodOptions {
+			h.Set("Access-Control-Allow-Methods", strings.Join(
+				[]string{
+					http.MethodOptions,
+					http.MethodGet,
+					http.MethodPut,
+					http.MethodHead,
+					http.MethodPost,
+					http.MethodDelete,
+					http.MethodPatch,
+					http.MethodTrace,
+				}, ", ",
+			))
+
+			h.Set("Access-Control-Allow-Headers", strings.Join(
+				[]string{
+					"Access-Control-Allow-Headers",
+					"Origin",
+					"X-Requested-With",
+					"Content-Type",
+					"Accept",
+				}, ", ",
+			))
+
 			return
 		}
-		w.Header().Set("Access-Control-Allow-Origin", o)
 
 		next.ServeHTTP(w, r)
 	})
 }
 
-func swaggerWrapper(next http.Handler) http.Handler {
-	return cors(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/v1/swagger.json" {
-			if d, err := idl.Asset("grpcbasic0.swagger.json"); err == nil {
-				_, err = w.Write(d)
-				if err != nil {
-					fmt.Fprintf(os.Stderr, "cannot write swagger.json: %v\n", err)
-				}
+// v1 swagger.json
+func v1SwaggerHandler(w http.ResponseWriter, r *http.Request) {
+	d, err := idl.Asset("grpcbasic0.swagger.json")
+	if err == nil {
+		_, err = w.Write(d)
+		if err == nil {
+			return
+		}
+	}
 
-				return
-			}
+	fmt.Fprintf(os.Stderr, "cannot write swagger.json: %v\n", err)
+
+	stts := http.StatusInternalServerError
+	http.Error(w, http.StatusText(stts), stts)
+}
+
+// custom routing prior to generated api
+func preMuxRouter(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/v1/swagger.json":
+			http.HandlerFunc(v1SwaggerHandler).ServeHTTP(w, r)
+			return
 		}
 
 		next.ServeHTTP(w, r)
-	}))
+	})
 }
 
 func main() {
@@ -61,7 +100,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	h := swaggerWrapper(m)
+	// custom routes first, and cors handling on all requests
+	h := cors(preMuxRouter(m))
 
 	if err = http.ListenAndServe(port, h); err != nil {
 		fmt.Fprintf(os.Stderr, "http server error: %v\n", err)

@@ -43,7 +43,8 @@ func (fi bindata_file_info) Sys() interface{} {
 var _grpcbasic0_swagger_json = []byte(`{
   "swagger": "2.0",
   "info": {
-    "title": "grpcbasic0.proto",
+    "title": "User Service",
+    "description": "User Service API provides create, read, and read (many) access to a list of \nusers.",
     "version": "version not set"
   },
   "schemes": [
@@ -83,34 +84,8 @@ var _grpcbasic0_swagger_json = []byte(`{
         ]
       }
     },
-    "/v1/users": {
-      "post": {
-        "operationId": "ListUsers",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/idlUsers"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/idlUsersListReq"
-            }
-          }
-        ],
-        "tags": [
-          "UserService"
-        ]
-      }
-    },
-    "/v1/users/{id}": {
-      "post": {
+    "/v1/user/{id}": {
+      "get": {
         "operationId": "GetUser",
         "responses": {
           "200": {
@@ -127,14 +102,42 @@ var _grpcbasic0_swagger_json = []byte(`{
             "required": true,
             "type": "string",
             "format": "int64"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "operationId": "GetUsers",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/idlUsers"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/idlUserGetReq"
-            }
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -198,14 +201,14 @@ var _grpcbasic0_swagger_json = []byte(`{
         }
       }
     },
-    "idlUsersListReq": {
+    "idlUsersGetReq": {
       "type": "object",
       "properties": {
         "count": {
           "type": "string",
           "format": "int64"
         },
-        "down": {
+        "desc": {
           "type": "boolean",
           "format": "boolean"
         },
@@ -229,7 +232,7 @@ func grpcbasic0_swagger_json() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3505, mode: os.FileMode(436), modTime: time.Unix(1475470724, 0)}
+	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3626, mode: os.FileMode(436), modTime: time.Unix(1475773316, 0)}
 	a := &asset{bytes: bytes, info:  info}
 	return a, nil
 }

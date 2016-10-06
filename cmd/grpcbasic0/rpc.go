@@ -56,27 +56,37 @@ func (s *UserService) GetUser(ctx context.Context, req *idl.UserGetReq) (*idl.Us
 	return nil, grpc.Errorf(codes.NotFound, "cannot find user 'id: %d'", req.Id)
 }
 
-// ListUsers ...
-func (s *UserService) ListUsers(ctx context.Context, req *idl.UsersListReq) (*idl.Users, error) {
+// GetUsers ...
+func (s *UserService) GetUsers(ctx context.Context, req *idl.UsersGetReq) (*idl.Users, error) {
 	usrs := s.Users.Users
-	if req.Down {
+	if req.Desc {
 		usrs = reverse(usrs)
 	}
 
-	if req.Count == 0 {
+	if req.Start < 0 {
+		req.Start = 0
+	}
+	if req.Count <= 0 {
 		req.Count = int64(len(usrs))
 	}
 
 	first, last := req.Start, req.Start+req.Count
-	if last > int64(len(usrs)) {
-		last = int64(len(usrs))
-	}
+	first = filterMax(first, int64(len(usrs)))
+	last = filterMax(last, int64(len(usrs)))
 
 	return &idl.Users{Users: usrs[first:last]}, nil
 }
 
 func (s *UserService) newestUserID() int64 {
 	return s.Users.Users[len(s.Users.Users)-1].Id + 1
+}
+
+func filterMax(ind, length int64) int64 {
+	if ind > length {
+		return length
+	}
+
+	return ind
 }
 
 func reverse(s []*idl.User) []*idl.User {
