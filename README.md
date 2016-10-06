@@ -1,6 +1,6 @@
 # grpcbasic0
 
-    go get github.com/daved/grpcbasic0...
+    go get -u github.com/daved/grpcbasic0/...
 
 Package grpcbasic0 is an example of a gRPC server and client where the client
 makes use of grpc-gateway for setting up an HTTP reverse proxy. It is a trivial 
