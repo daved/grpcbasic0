@@ -1,4 +1,4 @@
-package idl
+package pb
 
 import (
 	"fmt"
@@ -65,7 +65,7 @@ var _grpcbasic0_swagger_json = []byte(`{
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUser"
+              "$ref": "#/definitions/pbUser"
             }
           }
         },
@@ -75,7 +75,7 @@ var _grpcbasic0_swagger_json = []byte(`{
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/idlUserRecordReq"
+              "$ref": "#/definitions/pbUserRecordReq"
             }
           }
         ],
@@ -91,7 +91,7 @@ var _grpcbasic0_swagger_json = []byte(`{
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUser"
+              "$ref": "#/definitions/pbUser"
             }
           }
         },
@@ -116,7 +116,7 @@ var _grpcbasic0_swagger_json = []byte(`{
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUsers"
+              "$ref": "#/definitions/pbUsers"
             }
           }
         },
@@ -150,7 +150,7 @@ var _grpcbasic0_swagger_json = []byte(`{
     }
   },
   "definitions": {
-    "idlUser": {
+    "pbUser": {
       "type": "object",
       "properties": {
         "id": {
@@ -169,7 +169,7 @@ var _grpcbasic0_swagger_json = []byte(`{
         }
       }
     },
-    "idlUserRecordReq": {
+    "pbUserRecordReq": {
       "type": "object",
       "properties": {
         "name": {
@@ -181,13 +181,13 @@ var _grpcbasic0_swagger_json = []byte(`{
         }
       }
     },
-    "idlUsers": {
+    "pbUsers": {
       "type": "object",
       "properties": {
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/idlUser"
+            "$ref": "#/definitions/pbUser"
           }
         }
       }
@@ -206,7 +206,7 @@ func grpcbasic0_swagger_json() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3121, mode: os.FileMode(436), modTime: time.Unix(1530583448, 0)}
+	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3113, mode: os.FileMode(436), modTime: time.Unix(1530584813, 0)}
 	a := &asset{bytes: bytes, info:  info}
 	return a, nil
 }

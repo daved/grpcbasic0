@@ -23,7 +23,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUser"
+              "$ref": "#/definitions/pbUser"
             }
           }
         },
@@ -33,7 +33,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/idlUserRecordReq"
+              "$ref": "#/definitions/pbUserRecordReq"
             }
           }
         ],
@@ -49,7 +49,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUser"
+              "$ref": "#/definitions/pbUser"
             }
           }
         },
@@ -74,7 +74,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/idlUsers"
+              "$ref": "#/definitions/pbUsers"
             }
           }
         },
@@ -108,7 +108,7 @@
     }
   },
   "definitions": {
-    "idlUser": {
+    "pbUser": {
       "type": "object",
       "properties": {
         "id": {
@@ -127,7 +127,7 @@
         }
       }
     },
-    "idlUserRecordReq": {
+    "pbUserRecordReq": {
       "type": "object",
       "properties": {
         "name": {
@@ -139,13 +139,13 @@
         }
       }
     },
-    "idlUsers": {
+    "pbUsers": {
       "type": "object",
       "properties": {
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/idlUser"
+            "$ref": "#/definitions/pbUser"
           }
         }
       }

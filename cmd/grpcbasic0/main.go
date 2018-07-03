@@ -6,7 +6,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/daved/grpcbasic0/idl"
+	"github.com/daved/grpcbasic0/pb"
 	"google.golang.org/grpc"
 )
 
@@ -36,7 +36,7 @@ func main() {
 	}
 
 	srvr, svc := grpc.NewServer(), NewUserService()
-	idl.RegisterUserServiceServer(srvr, svc)
+	pb.RegisterUserServiceServer(srvr, svc)
 
 	if err = srvr.Serve(l); err != nil {
 		fmt.Fprintf(os.Stderr, "rpc server error: %v\n", err)

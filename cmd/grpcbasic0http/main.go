@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/daved/grpcbasic0/idl"
+	"github.com/daved/grpcbasic0/pb"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 )
@@ -55,7 +55,7 @@ func cors(next http.Handler) http.Handler {
 
 // v1 swagger.json
 func v1SwaggerHandler(w http.ResponseWriter, r *http.Request) {
-	d, err := idl.Asset("grpcbasic0.swagger.json")
+	d, err := pb.Asset("grpcbasic0.swagger.json")
 	if err == nil {
 		_, err = w.Write(d)
 		if err == nil {
@@ -94,7 +94,7 @@ func main() {
 
 	m := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := idl.RegisterUserServiceHandlerFromEndpoint(ctx, m, rcpAddr, opts)
+	err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, m, rcpAddr, opts)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "cannot register service handler: %v\n", err)
 		os.Exit(1)

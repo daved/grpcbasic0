@@ -2,11 +2,11 @@
 // source: grpcbasic0.proto
 
 /*
-Package idl is a reverse proxy.
+Package pb is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package idl
+package pb
 
 import (
 	"io"

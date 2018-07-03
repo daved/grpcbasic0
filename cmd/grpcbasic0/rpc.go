@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/daved/grpcbasic0/idl"
+	"github.com/daved/grpcbasic0/pb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -9,14 +9,14 @@ import (
 
 // UserService ...
 type UserService struct {
-	Users *idl.Users
+	Users *pb.Users
 }
 
 // NewUserService ...
 func NewUserService() *UserService {
 	return &UserService{
-		Users: &idl.Users{
-			Users: []*idl.User{
+		Users: &pb.Users{
+			Users: []*pb.User{
 				{Id: 1, Name: "Alice", Age: 21, Fortune: fortunes.get(1)},
 				{Id: 2, Name: "Bob", Age: 30, Fortune: fortunes.get(2)},
 				{Id: 3, Name: "Charlie", Age: 25, Fortune: fortunes.get(3)},
@@ -27,13 +27,13 @@ func NewUserService() *UserService {
 }
 
 // RecordUser ...
-func (s *UserService) RecordUser(ctx context.Context, req *idl.UserRecordReq) (*idl.User, error) {
+func (s *UserService) RecordUser(ctx context.Context, req *pb.UserRecordReq) (*pb.User, error) {
 	if req.Age == 0 {
 		return nil, grpc.Errorf(codes.FailedPrecondition, "user record must include age (int64)")
 	}
 
 	tid := s.newestUserID()
-	usr := &idl.User{
+	usr := &pb.User{
 		Id:      tid,
 		Name:    req.Name,
 		Age:     req.Age,
@@ -46,7 +46,7 @@ func (s *UserService) RecordUser(ctx context.Context, req *idl.UserRecordReq) (*
 }
 
 // GetUser ...
-func (s *UserService) GetUser(ctx context.Context, req *idl.UserGetReq) (*idl.User, error) {
+func (s *UserService) GetUser(ctx context.Context, req *pb.UserGetReq) (*pb.User, error) {
 	for k, v := range s.Users.Users {
 		if v.Id == req.Id {
 			return s.Users.Users[k], nil
@@ -57,7 +57,7 @@ func (s *UserService) GetUser(ctx context.Context, req *idl.UserGetReq) (*idl.Us
 }
 
 // GetUsers ...
-func (s *UserService) GetUsers(ctx context.Context, req *idl.UsersGetReq) (*idl.Users, error) {
+func (s *UserService) GetUsers(ctx context.Context, req *pb.UsersGetReq) (*pb.Users, error) {
 	usrs := s.Users.Users
 	if req.Desc {
 		usrs = reverse(usrs)
@@ -74,7 +74,7 @@ func (s *UserService) GetUsers(ctx context.Context, req *idl.UsersGetReq) (*idl.
 	first = filterMax(first, int64(len(usrs)))
 	last = filterMax(last, int64(len(usrs)))
 
-	return &idl.Users{Users: usrs[first:last]}, nil
+	return &pb.Users{Users: usrs[first:last]}, nil
 }
 
 func (s *UserService) newestUserID() int64 {
@@ -89,8 +89,8 @@ func filterMax(ind, length int64) int64 {
 	return ind
 }
 
-func reverse(s []*idl.User) []*idl.User {
-	r := make([]*idl.User, len(s))
+func reverse(s []*pb.User) []*pb.User {
+	r := make([]*pb.User, len(s))
 	copy(r, s)
 
 	for i, j := 0, len(r)-1; i < j; i, j = i+1, j-1 {
