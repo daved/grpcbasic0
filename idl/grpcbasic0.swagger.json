@@ -83,19 +83,22 @@
             "name": "start",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           },
           {
             "name": "count",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           },
           {
             "name": "desc",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -108,43 +111,31 @@
     "idlUser": {
       "type": "object",
       "properties": {
-        "age": {
-          "type": "string",
-          "format": "int64"
-        },
-        "fortune": {
-          "type": "string",
-          "format": "string"
-        },
         "id": {
           "type": "string",
           "format": "int64"
         },
         "name": {
-          "type": "string",
-          "format": "string"
-        }
-      }
-    },
-    "idlUserGetReq": {
-      "type": "object",
-      "properties": {
-        "id": {
+          "type": "string"
+        },
+        "age": {
           "type": "string",
           "format": "int64"
+        },
+        "fortune": {
+          "type": "string"
         }
       }
     },
     "idlUserRecordReq": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "age": {
           "type": "string",
           "format": "int64"
-        },
-        "name": {
-          "type": "string",
-          "format": "string"
         }
       }
     },
@@ -156,23 +147,6 @@
           "items": {
             "$ref": "#/definitions/idlUser"
           }
-        }
-      }
-    },
-    "idlUsersGetReq": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "string",
-          "format": "int64"
-        },
-        "desc": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "start": {
-          "type": "string",
-          "format": "int64"
         }
       }
     }

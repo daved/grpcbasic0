@@ -125,19 +125,22 @@ var _grpcbasic0_swagger_json = []byte(`{
             "name": "start",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           },
           {
             "name": "count",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "format": "int64"
           },
           {
             "name": "desc",
             "in": "query",
             "required": false,
-            "type": "boolean"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -150,43 +153,31 @@ var _grpcbasic0_swagger_json = []byte(`{
     "idlUser": {
       "type": "object",
       "properties": {
-        "age": {
-          "type": "string",
-          "format": "int64"
-        },
-        "fortune": {
-          "type": "string",
-          "format": "string"
-        },
         "id": {
           "type": "string",
           "format": "int64"
         },
         "name": {
-          "type": "string",
-          "format": "string"
-        }
-      }
-    },
-    "idlUserGetReq": {
-      "type": "object",
-      "properties": {
-        "id": {
+          "type": "string"
+        },
+        "age": {
           "type": "string",
           "format": "int64"
+        },
+        "fortune": {
+          "type": "string"
         }
       }
     },
     "idlUserRecordReq": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "age": {
           "type": "string",
           "format": "int64"
-        },
-        "name": {
-          "type": "string",
-          "format": "string"
         }
       }
     },
@@ -198,23 +189,6 @@ var _grpcbasic0_swagger_json = []byte(`{
           "items": {
             "$ref": "#/definitions/idlUser"
           }
-        }
-      }
-    },
-    "idlUsersGetReq": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "string",
-          "format": "int64"
-        },
-        "desc": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "start": {
-          "type": "string",
-          "format": "int64"
         }
       }
     }
@@ -232,7 +206,7 @@ func grpcbasic0_swagger_json() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3626, mode: os.FileMode(436), modTime: time.Unix(1475773316, 0)}
+	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3121, mode: os.FileMode(436), modTime: time.Unix(1530583448, 0)}
 	a := &asset{bytes: bytes, info:  info}
 	return a, nil
 }

@@ -25,7 +25,7 @@ package idl
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import _ "github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api"
+import _ "google.golang.org/genproto/googleapis/api/annotations"
 
 import (
 	context "golang.org/x/net/context"
@@ -55,6 +55,34 @@ func (m *User) String() string            { return proto.CompactTextString(m) }
 func (*User) ProtoMessage()               {}
 func (*User) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *User) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *User) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *User) GetAge() int64 {
+	if m != nil {
+		return m.Age
+	}
+	return 0
+}
+
+func (m *User) GetFortune() string {
+	if m != nil {
+		return m.Fortune
+	}
+	return ""
+}
+
 type UserRecordReq struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 	Age  int64  `protobuf:"varint,2,opt,name=age" json:"age,omitempty"`
@@ -65,6 +93,20 @@ func (m *UserRecordReq) String() string            { return proto.CompactTextStr
 func (*UserRecordReq) ProtoMessage()               {}
 func (*UserRecordReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
+func (m *UserRecordReq) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *UserRecordReq) GetAge() int64 {
+	if m != nil {
+		return m.Age
+	}
+	return 0
+}
+
 type UserGetReq struct {
 	Id int64 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 }
@@ -73,6 +115,13 @@ func (m *UserGetReq) Reset()                    { *m = UserGetReq{} }
 func (m *UserGetReq) String() string            { return proto.CompactTextString(m) }
 func (*UserGetReq) ProtoMessage()               {}
 func (*UserGetReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *UserGetReq) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
 
 type Users struct {
 	Users []*User `protobuf:"bytes,1,rep,name=users" json:"users,omitempty"`
@@ -101,6 +150,27 @@ func (m *UsersGetReq) String() string            { return proto.CompactTextStrin
 func (*UsersGetReq) ProtoMessage()               {}
 func (*UsersGetReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
+func (m *UsersGetReq) GetStart() int64 {
+	if m != nil {
+		return m.Start
+	}
+	return 0
+}
+
+func (m *UsersGetReq) GetCount() int64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *UsersGetReq) GetDesc() bool {
+	if m != nil {
+		return m.Desc
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterType((*User)(nil), "idl.User")
 	proto.RegisterType((*UserRecordReq)(nil), "idl.UserRecordReq")
@@ -115,7 +185,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for UserService service
 
@@ -244,14 +314,14 @@ var _UserService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "grpcbasic0.proto",
 }
 
 func init() { proto.RegisterFile("grpcbasic0.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
 	// 345 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x64, 0x91, 0xb1, 0x4e, 0xc3, 0x30,
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x91, 0xb1, 0x4e, 0xc3, 0x30,
 	0x10, 0x86, 0x95, 0xa4, 0xa5, 0xed, 0x55, 0xa5, 0xe5, 0x00, 0x29, 0xaa, 0x2a, 0x51, 0x79, 0x8a,
 	0x18, 0x1a, 0x28, 0x62, 0x01, 0x06, 0xb6, 0x4e, 0x2c, 0x41, 0xb0, 0xbb, 0xb1, 0x89, 0x2c, 0x95,
 	0xb8, 0xd8, 0x6e, 0x17, 0xc4, 0xc2, 0x2b, 0xf0, 0x56, 0xac, 0xbc, 0x02, 0x0f, 0x82, 0x6c, 0x27,
