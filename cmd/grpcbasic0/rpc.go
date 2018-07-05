@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/daved/grpcbasic0/pb"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // UserService ...
@@ -29,7 +29,7 @@ func NewUserService() *UserService {
 // RecordUser ...
 func (s *UserService) RecordUser(ctx context.Context, req *pb.UserRecordReq) (*pb.User, error) {
 	if req.Age == 0 {
-		return nil, grpc.Errorf(codes.FailedPrecondition, "user record must include age (int64)")
+		return nil, status.Errorf(codes.FailedPrecondition, "user record must include age (int64)")
 	}
 
 	tid := s.newestUserID()
@@ -53,7 +53,7 @@ func (s *UserService) GetUser(ctx context.Context, req *pb.UserGetReq) (*pb.User
 		}
 	}
 
-	return nil, grpc.Errorf(codes.NotFound, "cannot find user 'id: %d'", req.Id)
+	return nil, status.Errorf(codes.NotFound, "cannot find user 'id: %d'", req.Id)
 }
 
 // GetUsers ...
