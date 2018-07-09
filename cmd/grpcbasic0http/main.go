@@ -13,6 +13,33 @@ import (
 	"google.golang.org/grpc"
 )
 
+func main() {
+	var rcpAddr, port string
+	flag.StringVar(&rcpAddr, "rcp", ":3323", "rcp addr (default: ':3323')")
+	flag.StringVar(&port, "http", ":3343", "http port (default: '3343')")
+	flag.Parse()
+
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	m := runtime.NewServeMux()
+	opts := []grpc.DialOption{grpc.WithInsecure()}
+	err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, m, rcpAddr, opts)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "cannot register service handler: %v\n", err)
+		os.Exit(1)
+	}
+
+	// custom routes first, and cors handling on all requests
+	h := cors(preMuxRouter(m))
+
+	if err = http.ListenAndServe(port, h); err != nil {
+		fmt.Fprintf(os.Stderr, "http server error: %v\n", err)
+		os.Exit(1)
+	}
+}
+
 // cross-origin resource sharing
 func cors(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -80,31 +107,4 @@ func preMuxRouter(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
-}
-
-func main() {
-	var rcpAddr, port string
-	flag.StringVar(&rcpAddr, "rcp", ":3323", "rcp addr (default: ':3323')")
-	flag.StringVar(&port, "http", ":3343", "http port (default: '3343')")
-	flag.Parse()
-
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	m := runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, m, rcpAddr, opts)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot register service handler: %v\n", err)
-		os.Exit(1)
-	}
-
-	// custom routes first, and cors handling on all requests
-	h := cors(preMuxRouter(m))
-
-	if err = http.ListenAndServe(port, h); err != nil {
-		fmt.Fprintf(os.Stderr, "http server error: %v\n", err)
-		os.Exit(1)
-	}
 }
