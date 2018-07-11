@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
+
 	"github.com/daved/grpcbasic0/pb"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
