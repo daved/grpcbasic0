@@ -20,14 +20,12 @@ func main() {
 	flag.Parse()
 
 	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
 	m := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
+
 	err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, m, rcpAddr, opts)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "cannot register service handler: %v\n", err)
+		fmt.Fprintf(os.Stderr, "cannot register service handler: %s\n", err)
 		os.Exit(1)
 	}
 
@@ -35,7 +33,7 @@ func main() {
 	h := cors(preMuxRouter(m))
 
 	if err = http.ListenAndServe(port, h); err != nil {
-		fmt.Fprintf(os.Stderr, "http server error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "http server error: %s\n", err)
 		os.Exit(1)
 	}
 }
@@ -90,7 +88,7 @@ func v1SwaggerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Fprintf(os.Stderr, "cannot write swagger.json: %v\n", err)
+	fmt.Fprintf(os.Stderr, "cannot write swagger.json: %s\n", err)
 
 	stts := http.StatusInternalServerError
 	http.Error(w, http.StatusText(stts), stts)
