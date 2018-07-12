@@ -14,11 +14,11 @@ It is generated from these files:
 	grpcbasic0.proto
 
 It has these top-level messages:
-	User
-	UserRecordReq
-	UserGetReq
-	Users
-	UsersGetReq
+	UserResp
+	NewUserReq
+	GetUserReq
+	UsersResp
+	GetUsersReq
 */
 package pb
 
@@ -43,128 +43,128 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type User struct {
+type UserResp struct {
 	Id      int64  `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 	Name    string `protobuf:"bytes,2,opt,name=name" json:"name,omitempty"`
 	Age     int64  `protobuf:"varint,3,opt,name=age" json:"age,omitempty"`
 	Fortune string `protobuf:"bytes,4,opt,name=fortune" json:"fortune,omitempty"`
 }
 
-func (m *User) Reset()                    { *m = User{} }
-func (m *User) String() string            { return proto.CompactTextString(m) }
-func (*User) ProtoMessage()               {}
-func (*User) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (m *UserResp) Reset()                    { *m = UserResp{} }
+func (m *UserResp) String() string            { return proto.CompactTextString(m) }
+func (*UserResp) ProtoMessage()               {}
+func (*UserResp) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *User) GetId() int64 {
+func (m *UserResp) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-func (m *User) GetName() string {
+func (m *UserResp) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *User) GetAge() int64 {
+func (m *UserResp) GetAge() int64 {
 	if m != nil {
 		return m.Age
 	}
 	return 0
 }
 
-func (m *User) GetFortune() string {
+func (m *UserResp) GetFortune() string {
 	if m != nil {
 		return m.Fortune
 	}
 	return ""
 }
 
-type UserRecordReq struct {
+type NewUserReq struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 	Age  int64  `protobuf:"varint,2,opt,name=age" json:"age,omitempty"`
 }
 
-func (m *UserRecordReq) Reset()                    { *m = UserRecordReq{} }
-func (m *UserRecordReq) String() string            { return proto.CompactTextString(m) }
-func (*UserRecordReq) ProtoMessage()               {}
-func (*UserRecordReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+func (m *NewUserReq) Reset()                    { *m = NewUserReq{} }
+func (m *NewUserReq) String() string            { return proto.CompactTextString(m) }
+func (*NewUserReq) ProtoMessage()               {}
+func (*NewUserReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
-func (m *UserRecordReq) GetName() string {
+func (m *NewUserReq) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *UserRecordReq) GetAge() int64 {
+func (m *NewUserReq) GetAge() int64 {
 	if m != nil {
 		return m.Age
 	}
 	return 0
 }
 
-type UserGetReq struct {
+type GetUserReq struct {
 	Id int64 `protobuf:"varint,1,opt,name=id" json:"id,omitempty"`
 }
 
-func (m *UserGetReq) Reset()                    { *m = UserGetReq{} }
-func (m *UserGetReq) String() string            { return proto.CompactTextString(m) }
-func (*UserGetReq) ProtoMessage()               {}
-func (*UserGetReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+func (m *GetUserReq) Reset()                    { *m = GetUserReq{} }
+func (m *GetUserReq) String() string            { return proto.CompactTextString(m) }
+func (*GetUserReq) ProtoMessage()               {}
+func (*GetUserReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
-func (m *UserGetReq) GetId() int64 {
+func (m *GetUserReq) GetId() int64 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-type Users struct {
-	Users []*User `protobuf:"bytes,1,rep,name=users" json:"users,omitempty"`
+type UsersResp struct {
+	Users []*UserResp `protobuf:"bytes,1,rep,name=users" json:"users,omitempty"`
 }
 
-func (m *Users) Reset()                    { *m = Users{} }
-func (m *Users) String() string            { return proto.CompactTextString(m) }
-func (*Users) ProtoMessage()               {}
-func (*Users) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+func (m *UsersResp) Reset()                    { *m = UsersResp{} }
+func (m *UsersResp) String() string            { return proto.CompactTextString(m) }
+func (*UsersResp) ProtoMessage()               {}
+func (*UsersResp) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
-func (m *Users) GetUsers() []*User {
+func (m *UsersResp) GetUsers() []*UserResp {
 	if m != nil {
 		return m.Users
 	}
 	return nil
 }
 
-type UsersGetReq struct {
+type GetUsersReq struct {
 	Start int64 `protobuf:"varint,1,opt,name=start" json:"start,omitempty"`
 	Count int64 `protobuf:"varint,2,opt,name=count" json:"count,omitempty"`
 	Desc  bool  `protobuf:"varint,3,opt,name=desc" json:"desc,omitempty"`
 }
 
-func (m *UsersGetReq) Reset()                    { *m = UsersGetReq{} }
-func (m *UsersGetReq) String() string            { return proto.CompactTextString(m) }
-func (*UsersGetReq) ProtoMessage()               {}
-func (*UsersGetReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+func (m *GetUsersReq) Reset()                    { *m = GetUsersReq{} }
+func (m *GetUsersReq) String() string            { return proto.CompactTextString(m) }
+func (*GetUsersReq) ProtoMessage()               {}
+func (*GetUsersReq) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
-func (m *UsersGetReq) GetStart() int64 {
+func (m *GetUsersReq) GetStart() int64 {
 	if m != nil {
 		return m.Start
 	}
 	return 0
 }
 
-func (m *UsersGetReq) GetCount() int64 {
+func (m *GetUsersReq) GetCount() int64 {
 	if m != nil {
 		return m.Count
 	}
 	return 0
 }
 
-func (m *UsersGetReq) GetDesc() bool {
+func (m *GetUsersReq) GetDesc() bool {
 	if m != nil {
 		return m.Desc
 	}
@@ -172,11 +172,11 @@ func (m *UsersGetReq) GetDesc() bool {
 }
 
 func init() {
-	proto.RegisterType((*User)(nil), "pb.User")
-	proto.RegisterType((*UserRecordReq)(nil), "pb.UserRecordReq")
-	proto.RegisterType((*UserGetReq)(nil), "pb.UserGetReq")
-	proto.RegisterType((*Users)(nil), "pb.Users")
-	proto.RegisterType((*UsersGetReq)(nil), "pb.UsersGetReq")
+	proto.RegisterType((*UserResp)(nil), "pb.UserResp")
+	proto.RegisterType((*NewUserReq)(nil), "pb.NewUserReq")
+	proto.RegisterType((*GetUserReq)(nil), "pb.GetUserReq")
+	proto.RegisterType((*UsersResp)(nil), "pb.UsersResp")
+	proto.RegisterType((*GetUsersReq)(nil), "pb.GetUsersReq")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -190,9 +190,9 @@ const _ = grpc.SupportPackageIsVersion4
 // Client API for UserService service
 
 type UserServiceClient interface {
-	RecordUser(ctx context.Context, in *UserRecordReq, opts ...grpc.CallOption) (*User, error)
-	GetUser(ctx context.Context, in *UserGetReq, opts ...grpc.CallOption) (*User, error)
-	GetUsers(ctx context.Context, in *UsersGetReq, opts ...grpc.CallOption) (*Users, error)
+	NewUser(ctx context.Context, in *NewUserReq, opts ...grpc.CallOption) (*UserResp, error)
+	GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*UserResp, error)
+	GetUsers(ctx context.Context, in *GetUsersReq, opts ...grpc.CallOption) (*UsersResp, error)
 }
 
 type userServiceClient struct {
@@ -203,17 +203,17 @@ func NewUserServiceClient(cc *grpc.ClientConn) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) RecordUser(ctx context.Context, in *UserRecordReq, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
-	err := grpc.Invoke(ctx, "/pb.UserService/RecordUser", in, out, c.cc, opts...)
+func (c *userServiceClient) NewUser(ctx context.Context, in *NewUserReq, opts ...grpc.CallOption) (*UserResp, error) {
+	out := new(UserResp)
+	err := grpc.Invoke(ctx, "/pb.UserService/NewUser", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userServiceClient) GetUser(ctx context.Context, in *UserGetReq, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
+func (c *userServiceClient) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*UserResp, error) {
+	out := new(UserResp)
 	err := grpc.Invoke(ctx, "/pb.UserService/GetUser", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -221,8 +221,8 @@ func (c *userServiceClient) GetUser(ctx context.Context, in *UserGetReq, opts ..
 	return out, nil
 }
 
-func (c *userServiceClient) GetUsers(ctx context.Context, in *UsersGetReq, opts ...grpc.CallOption) (*Users, error) {
-	out := new(Users)
+func (c *userServiceClient) GetUsers(ctx context.Context, in *GetUsersReq, opts ...grpc.CallOption) (*UsersResp, error) {
+	out := new(UsersResp)
 	err := grpc.Invoke(ctx, "/pb.UserService/GetUsers", in, out, c.cc, opts...)
 	if err != nil {
 		return nil, err
@@ -233,35 +233,35 @@ func (c *userServiceClient) GetUsers(ctx context.Context, in *UsersGetReq, opts 
 // Server API for UserService service
 
 type UserServiceServer interface {
-	RecordUser(context.Context, *UserRecordReq) (*User, error)
-	GetUser(context.Context, *UserGetReq) (*User, error)
-	GetUsers(context.Context, *UsersGetReq) (*Users, error)
+	NewUser(context.Context, *NewUserReq) (*UserResp, error)
+	GetUser(context.Context, *GetUserReq) (*UserResp, error)
+	GetUsers(context.Context, *GetUsersReq) (*UsersResp, error)
 }
 
 func RegisterUserServiceServer(s *grpc.Server, srv UserServiceServer) {
 	s.RegisterService(&_UserService_serviceDesc, srv)
 }
 
-func _UserService_RecordUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserRecordReq)
+func _UserService_NewUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).RecordUser(ctx, in)
+		return srv.(UserServiceServer).NewUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.UserService/RecordUser",
+		FullMethod: "/pb.UserService/NewUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).RecordUser(ctx, req.(*UserRecordReq))
+		return srv.(UserServiceServer).NewUser(ctx, req.(*NewUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserGetReq)
+	in := new(GetUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -273,13 +273,13 @@ func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/pb.UserService/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetUser(ctx, req.(*UserGetReq))
+		return srv.(UserServiceServer).GetUser(ctx, req.(*GetUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UserService_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UsersGetReq)
+	in := new(GetUsersReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -291,7 +291,7 @@ func _UserService_GetUsers_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/pb.UserService/GetUsers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetUsers(ctx, req.(*UsersGetReq))
+		return srv.(UserServiceServer).GetUsers(ctx, req.(*GetUsersReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -301,8 +301,8 @@ var _UserService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RecordUser",
-			Handler:    _UserService_RecordUser_Handler,
+			MethodName: "NewUser",
+			Handler:    _UserService_NewUser_Handler,
 		},
 		{
 			MethodName: "GetUser",
@@ -320,27 +320,27 @@ var _UserService_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("grpcbasic0.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 348 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x91, 0xc1, 0x4e, 0xe3, 0x30,
-	0x10, 0x86, 0xe5, 0xa4, 0xdd, 0xa6, 0x53, 0x75, 0xdb, 0xce, 0xee, 0x4a, 0x51, 0x55, 0xad, 0x2a,
-	0x5f, 0xa8, 0x38, 0x34, 0x50, 0xc4, 0x81, 0x1e, 0xb8, 0xf6, 0xc4, 0x25, 0x08, 0xee, 0x4e, 0x62,
-	0x22, 0x4b, 0x10, 0x07, 0xdb, 0xed, 0x05, 0x71, 0xe1, 0x15, 0x78, 0x25, 0xde, 0x80, 0x57, 0xe0,
-	0x41, 0x90, 0xed, 0x24, 0x42, 0x70, 0x9b, 0x99, 0xfc, 0xdf, 0x3f, 0xff, 0x38, 0x30, 0x2d, 0x55,
-	0x9d, 0x67, 0x4c, 0x8b, 0xfc, 0x64, 0x5d, 0x2b, 0x69, 0x24, 0x06, 0x75, 0x36, 0x5f, 0x94, 0x52,
-	0x96, 0xf7, 0x3c, 0x61, 0xb5, 0x48, 0x58, 0x55, 0x49, 0xc3, 0x8c, 0x90, 0x95, 0xf6, 0x0a, 0x7a,
-	0x0b, 0xbd, 0x1b, 0xcd, 0x15, 0xfe, 0x86, 0x40, 0x14, 0x31, 0x59, 0x92, 0x55, 0x98, 0x06, 0xa2,
-	0x40, 0x84, 0x5e, 0xc5, 0x1e, 0x78, 0x1c, 0x2c, 0xc9, 0x6a, 0x98, 0xba, 0x1a, 0xa7, 0x10, 0xb2,
-	0x92, 0xc7, 0xa1, 0x13, 0xd9, 0x12, 0x63, 0x18, 0xdc, 0x49, 0x65, 0xf6, 0x15, 0x8f, 0x7b, 0x4e,
-	0xd8, 0xb6, 0xf4, 0x1c, 0xc6, 0xd6, 0x37, 0xe5, 0xb9, 0x54, 0x45, 0xca, 0x1f, 0x3b, 0x43, 0xf2,
-	0xd3, 0x30, 0xe8, 0x0c, 0xe9, 0x02, 0xc0, 0x62, 0x3b, 0x6e, 0x2c, 0xf3, 0x2d, 0x14, 0x3d, 0x82,
-	0xbe, 0xfd, 0xaa, 0xf1, 0x3f, 0xf4, 0xf7, 0xb6, 0x88, 0xc9, 0x32, 0x5c, 0x8d, 0x36, 0xd1, 0xba,
-	0xce, 0xd6, 0x6e, 0x9d, 0x1f, 0xd3, 0x2b, 0x18, 0x39, 0x61, 0xe3, 0xf3, 0x17, 0xfa, 0xda, 0x30,
-	0x65, 0x1a, 0x2b, 0xdf, 0xd8, 0x69, 0x2e, 0xf7, 0x95, 0x69, 0xf6, 0xfb, 0xc6, 0xe6, 0x2c, 0xb8,
-	0xce, 0xdd, 0x95, 0x51, 0xea, 0xea, 0xcd, 0x1b, 0xf1, 0x7e, 0xd7, 0x5c, 0x1d, 0x44, 0xce, 0xf1,
-	0x12, 0xc0, 0x1f, 0xe6, 0x9e, 0x6e, 0xd6, 0x6d, 0x6f, 0x8f, 0x9d, 0x77, 0x81, 0xe8, 0x9f, 0x97,
-	0xf7, 0x8f, 0xd7, 0x60, 0x4c, 0xa3, 0xe4, 0x70, 0x9a, 0xd8, 0x70, 0x5b, 0x72, 0x8c, 0x5b, 0x18,
-	0xec, 0xb8, 0xf1, 0xef, 0xde, 0x2a, 0x7d, 0xd4, 0x2f, 0xe4, 0x3f, 0x47, 0x4e, 0x70, 0xdc, 0x92,
-	0xc9, 0x93, 0x28, 0x9e, 0xf1, 0x02, 0xa2, 0x86, 0xd5, 0x38, 0x69, 0xc5, 0xcd, 0xa1, 0xf3, 0x61,
-	0x37, 0xa0, 0x33, 0x87, 0x8f, 0x70, 0xd8, 0xe2, 0x3a, 0xfb, 0xe5, 0x7e, 0xf9, 0xd9, 0x67, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0x75, 0xff, 0xf6, 0x40, 0x28, 0x02, 0x00, 0x00,
+	// 347 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x92, 0xbf, 0x4e, 0xeb, 0x30,
+	0x14, 0xc6, 0xe5, 0xa4, 0xbd, 0x4d, 0x4f, 0x6e, 0xff, 0xdc, 0x73, 0x41, 0x8a, 0xaa, 0x0e, 0x95,
+	0xa7, 0x8a, 0xa1, 0x81, 0xb2, 0x21, 0x60, 0x65, 0x82, 0x21, 0x88, 0x85, 0xcd, 0x49, 0x4c, 0x64,
+	0x09, 0xe2, 0x10, 0xbb, 0x65, 0x40, 0x2c, 0xbc, 0x02, 0x6f, 0xc5, 0xca, 0x2b, 0xf0, 0x20, 0xc8,
+	0x4e, 0xdc, 0x42, 0xd9, 0xce, 0x97, 0x73, 0xbe, 0x5f, 0xbe, 0x2f, 0x0a, 0x8c, 0x8b, 0xba, 0xca,
+	0x52, 0xa6, 0x44, 0x76, 0xb8, 0xa8, 0x6a, 0xa9, 0x25, 0x7a, 0x55, 0x3a, 0x99, 0x16, 0x52, 0x16,
+	0xf7, 0x3c, 0x66, 0x95, 0x88, 0x59, 0x59, 0x4a, 0xcd, 0xb4, 0x90, 0xa5, 0x6a, 0x2e, 0xe8, 0x2d,
+	0x04, 0x37, 0x8a, 0xd7, 0x09, 0x57, 0x15, 0x0e, 0xc1, 0x13, 0x79, 0x44, 0x66, 0x64, 0xee, 0x27,
+	0x9e, 0xc8, 0x11, 0xa1, 0x53, 0xb2, 0x07, 0x1e, 0x79, 0x33, 0x32, 0xef, 0x27, 0x76, 0xc6, 0x31,
+	0xf8, 0xac, 0xe0, 0x91, 0x6f, 0x8f, 0xcc, 0x88, 0x11, 0xf4, 0xee, 0x64, 0xad, 0x57, 0x25, 0x8f,
+	0x3a, 0xf6, 0xd0, 0x49, 0xba, 0x04, 0xb8, 0xe2, 0x4f, 0x0d, 0xfe, 0x71, 0x43, 0x23, 0xbf, 0x69,
+	0xde, 0x86, 0x46, 0xa7, 0x00, 0x17, 0x5c, 0x3b, 0xcf, 0x4e, 0x22, 0x1a, 0x43, 0xdf, 0xac, 0x94,
+	0x8d, 0x4b, 0xa1, 0xbb, 0x32, 0x22, 0x22, 0x33, 0x7f, 0x1e, 0x2e, 0xff, 0x2e, 0xaa, 0x74, 0xe1,
+	0xba, 0x24, 0xcd, 0x8a, 0x5e, 0x42, 0xd8, 0xe2, 0x94, 0xe1, 0xed, 0x41, 0x57, 0x69, 0x56, 0xeb,
+	0x16, 0xd9, 0x08, 0xf3, 0x34, 0x93, 0xab, 0x52, 0xb7, 0x39, 0x1a, 0x61, 0xf2, 0xe6, 0x5c, 0x65,
+	0xb6, 0x6a, 0x90, 0xd8, 0x79, 0xf9, 0x4e, 0x20, 0x34, 0xb0, 0x6b, 0x5e, 0xaf, 0x45, 0xc6, 0xf1,
+	0x14, 0x7a, 0x6d, 0x43, 0x1c, 0x9a, 0xd7, 0x6f, 0xeb, 0x4e, 0x7e, 0xc4, 0xa1, 0xff, 0x5f, 0x3f,
+	0x3e, 0xdf, 0xbc, 0x01, 0x0d, 0xe2, 0xf5, 0x51, 0x6c, 0xa2, 0x9d, 0x90, 0x03, 0x3c, 0x87, 0x5e,
+	0x1b, 0xae, 0x71, 0x6f, 0x8b, 0xef, 0xb8, 0xf7, 0xad, 0x7b, 0x84, 0x03, 0xe7, 0x8e, 0x9f, 0x45,
+	0xfe, 0x82, 0x67, 0x10, 0xb8, 0x72, 0x38, 0xfa, 0x06, 0x30, 0x55, 0x27, 0x03, 0x47, 0xb0, 0x1f,
+	0x8b, 0xfe, 0xb3, 0x88, 0x10, 0xfb, 0x0e, 0xa1, 0xd2, 0x3f, 0xf6, 0x0f, 0x38, 0xfe, 0x0a, 0x00,
+	0x00, 0xff, 0xff, 0x0f, 0xba, 0xc5, 0xaa, 0x37, 0x02, 0x00, 0x00,
 }

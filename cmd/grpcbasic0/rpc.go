@@ -10,14 +10,14 @@ import (
 
 // UserService ...
 type UserService struct {
-	Users *pb.Users
+	UsersResp *pb.UsersResp
 }
 
 // NewUserService ...
 func NewUserService() *UserService {
 	return &UserService{
-		Users: &pb.Users{
-			Users: []*pb.User{
+		UsersResp: &pb.UsersResp{
+			Users: []*pb.UserResp{
 				{Id: 1, Name: "Alice", Age: 21, Fortune: fortunes.get(1)},
 				{Id: 2, Name: "Bob", Age: 30, Fortune: fortunes.get(2)},
 				{Id: 3, Name: "Charlie", Age: 25, Fortune: fortunes.get(3)},
@@ -27,30 +27,30 @@ func NewUserService() *UserService {
 	}
 }
 
-// RecordUser ...
-func (s *UserService) RecordUser(ctx context.Context, req *pb.UserRecordReq) (*pb.User, error) {
+// NewUser ...
+func (s *UserService) NewUser(ctx context.Context, req *pb.NewUserReq) (*pb.UserResp, error) {
 	if req.Age == 0 {
 		return nil, status.Errorf(codes.FailedPrecondition, "user record must include age (int64)")
 	}
 
 	tid := s.newestUserID()
-	usr := &pb.User{
+	usr := &pb.UserResp{
 		Id:      tid,
 		Name:    req.Name,
 		Age:     req.Age,
 		Fortune: fortunes.get(tid),
 	}
 
-	s.Users.Users = append(s.Users.Users, usr)
+	s.UsersResp.Users = append(s.UsersResp.Users, usr)
 
 	return usr, nil
 }
 
 // GetUser ...
-func (s *UserService) GetUser(ctx context.Context, req *pb.UserGetReq) (*pb.User, error) {
-	for k, v := range s.Users.Users {
+func (s *UserService) GetUser(ctx context.Context, req *pb.GetUserReq) (*pb.UserResp, error) {
+	for k, v := range s.UsersResp.Users {
 		if v.Id == req.Id {
-			return s.Users.Users[k], nil
+			return s.UsersResp.Users[k], nil
 		}
 	}
 
@@ -58,8 +58,8 @@ func (s *UserService) GetUser(ctx context.Context, req *pb.UserGetReq) (*pb.User
 }
 
 // GetUsers ...
-func (s *UserService) GetUsers(ctx context.Context, req *pb.UsersGetReq) (*pb.Users, error) {
-	usrs := s.Users.Users
+func (s *UserService) GetUsers(ctx context.Context, req *pb.GetUsersReq) (*pb.UsersResp, error) {
+	usrs := s.UsersResp.Users
 	if req.Desc {
 		usrs = reverse(usrs)
 	}
@@ -75,11 +75,11 @@ func (s *UserService) GetUsers(ctx context.Context, req *pb.UsersGetReq) (*pb.Us
 	first = filterMax(first, int64(len(usrs)))
 	last = filterMax(last, int64(len(usrs)))
 
-	return &pb.Users{Users: usrs[first:last]}, nil
+	return &pb.UsersResp{Users: usrs[first:last]}, nil
 }
 
 func (s *UserService) newestUserID() int64 {
-	return s.Users.Users[len(s.Users.Users)-1].Id + 1
+	return s.UsersResp.Users[len(s.UsersResp.Users)-1].Id + 1
 }
 
 func filterMax(ind, length int64) int64 {
@@ -90,8 +90,8 @@ func filterMax(ind, length int64) int64 {
 	return ind
 }
 
-func reverse(s []*pb.User) []*pb.User {
-	r := make([]*pb.User, len(s))
+func reverse(s []*pb.UserResp) []*pb.UserResp {
+	r := make([]*pb.UserResp, len(s))
 	copy(r, s)
 
 	for i, j := 0, len(r)-1; i < j; i, j = i+1, j-1 {

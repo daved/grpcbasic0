@@ -18,12 +18,12 @@
   "paths": {
     "/v1/user": {
       "post": {
-        "operationId": "RecordUser",
+        "operationId": "NewUser",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUser"
+              "$ref": "#/definitions/pbUserResp"
             }
           }
         },
@@ -33,7 +33,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbUserRecordReq"
+              "$ref": "#/definitions/pbNewUserReq"
             }
           }
         ],
@@ -49,7 +49,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUser"
+              "$ref": "#/definitions/pbUserResp"
             }
           }
         },
@@ -74,7 +74,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUsers"
+              "$ref": "#/definitions/pbUsersResp"
             }
           }
         },
@@ -108,7 +108,19 @@
     }
   },
   "definitions": {
-    "pbUser": {
+    "pbNewUserReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbUserResp": {
       "type": "object",
       "properties": {
         "id": {
@@ -127,25 +139,13 @@
         }
       }
     },
-    "pbUserRecordReq": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "pbUsers": {
+    "pbUsersResp": {
       "type": "object",
       "properties": {
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/pbUser"
+            "$ref": "#/definitions/pbUserResp"
           }
         }
       }

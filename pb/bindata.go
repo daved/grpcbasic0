@@ -60,12 +60,12 @@ var _grpcbasic0_swagger_json = []byte(`{
   "paths": {
     "/v1/user": {
       "post": {
-        "operationId": "RecordUser",
+        "operationId": "NewUser",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUser"
+              "$ref": "#/definitions/pbUserResp"
             }
           }
         },
@@ -75,7 +75,7 @@ var _grpcbasic0_swagger_json = []byte(`{
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbUserRecordReq"
+              "$ref": "#/definitions/pbNewUserReq"
             }
           }
         ],
@@ -91,7 +91,7 @@ var _grpcbasic0_swagger_json = []byte(`{
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUser"
+              "$ref": "#/definitions/pbUserResp"
             }
           }
         },
@@ -116,7 +116,7 @@ var _grpcbasic0_swagger_json = []byte(`{
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/pbUsers"
+              "$ref": "#/definitions/pbUsersResp"
             }
           }
         },
@@ -150,7 +150,19 @@ var _grpcbasic0_swagger_json = []byte(`{
     }
   },
   "definitions": {
-    "pbUser": {
+    "pbNewUserReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbUserResp": {
       "type": "object",
       "properties": {
         "id": {
@@ -169,25 +181,13 @@ var _grpcbasic0_swagger_json = []byte(`{
         }
       }
     },
-    "pbUserRecordReq": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "pbUsers": {
+    "pbUsersResp": {
       "type": "object",
       "properties": {
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/pbUser"
+            "$ref": "#/definitions/pbUserResp"
           }
         }
       }
@@ -206,7 +206,7 @@ func grpcbasic0_swagger_json() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3113, mode: os.FileMode(436), modTime: time.Unix(1530584813, 0)}
+	info := bindata_file_info{name: "grpcbasic0.swagger.json", size: 3128, mode: os.FileMode(436), modTime: time.Unix(1531354067, 0)}
 	a := &asset{bytes: bytes, info:  info}
 	return a, nil
 }

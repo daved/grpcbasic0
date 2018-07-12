@@ -8,47 +8,47 @@ package pb;
 
 import "google/api/annotations.proto";
 
-message User {
+message UserResp {
     int64 id = 1;
     string name = 2;
     int64 age = 3;
     string fortune = 4;
 }
 
-message UserRecordReq {
+message NewUserReq {
     string name = 1;
     int64 age = 2;
 }
 
-message UserGetReq {
+message GetUserReq {
     int64 id = 1;
 }
 
-message Users {
-    repeated User users = 1;
+message UsersResp {
+    repeated UserResp users = 1;
 }
 
-message UsersGetReq {
+message GetUsersReq {
     int64 start = 1;
     int64 count = 2;
     bool desc = 3;
 }
 
 service UserService {
-    rpc RecordUser(UserRecordReq) returns (User) {
+    rpc NewUser(NewUserReq) returns (UserResp) {
         option(google.api.http) = {
             post: "/v1/user"
             body: "*"
         };
     }
 
-    rpc GetUser(UserGetReq) returns (User) {
+    rpc GetUser(GetUserReq) returns (UserResp) {
         option(google.api.http) = {
             get: "/v1/user/{id}"
         };
     }
 
-    rpc GetUsers(UsersGetReq) returns (Users) {
+    rpc GetUsers(GetUsersReq) returns (UsersResp) {
         option(google.api.http) = {
             get: "/v1/users"
         };
