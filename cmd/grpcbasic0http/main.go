@@ -98,7 +98,7 @@ func v1SwaggerHandler(w http.ResponseWriter, r *http.Request) {
 func preMuxRouter(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case "/v1/swagger.json":
+		case "/v1/openapi.json":
 			http.HandlerFunc(v1SwaggerHandler).ServeHTTP(w, r)
 			return
 		}
